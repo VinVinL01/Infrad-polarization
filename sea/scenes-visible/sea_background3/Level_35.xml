@@ -1,0 +1,110 @@
+<scene version="3.0.0">
+    <!-- 使用OBJ网格的海浪偏振场景 -->
+
+    <default name="spp" value="256"/>
+    <default name="width" value="2560"/>
+    <default name="height" value="1440"/>
+
+    <integrator type="stokes">
+        <integrator type='path'>
+            <integer name="max_depth" value="8"/>
+        </integrator>
+    </integrator>
+
+    <!-- 相机：从斜上方观察海浪 -->
+    <sensor type="perspective" id="sensor">
+        <float name="fov" value="35"/>
+        <transform name="to_world">
+            <lookat origin="0, 90, 40"
+                    target="0, 0, -6"
+                    up="0, 0, 1"/>
+        </transform>
+        <sampler type="independent">
+            <integer name="sample_count" value="$spp"/>
+        </sampler>
+        <film type="hdrfilm">
+            <integer name="width"  value="$width"/>
+            <integer name="height" value="$height"/>
+            <rfilter type="gaussian"/>
+        </film>
+    </sensor>
+
+    <!-- 水的BSDF -->
+    <bsdf type="dielectric" id="water8_12">
+         <float name="int_ior" value="1.27"/>
+         <float name="ext_ior" value="1"/>
+    </bsdf>
+
+    <bsdf type="dielectric" id="water3_5">
+         <float name="int_ior" value="1.31"/>
+         <float name="ext_ior" value="1"/>
+        <rgb name="specular_reflectance" value="0.05, 0.22, 0.45"/>
+    </bsdf>
+
+    <bsdf type="roughconductor" id="metal">
+        <spectrum name="eta" value="1"/>
+        <spectrum name="k"   value="0.1"/>
+       <float name="alpha" value="0.5"/>  <!-- 表面粗糙度 -->
+    </bsdf>
+
+    <bsdf type="diffuse" id="white">
+        <rgb name="reflectance" value="0.99"/>
+    </bsdf>
+
+    <!-- 替代太阳的光源，偏振只能用面积光源替代了 -->
+    <shape type="sphere" id="sky_light">
+        <point name="center" value="0, -216.36, 70"/>     <!-- 球心在场景中心 -->
+        <float name="radius" value="70.0"/>        <!-- 大半径包围场景 -->
+        <ref id="white"/>
+        <emitter type="area">
+            <rgb name="radiance" value="400, 100, 100"/>  <!-- 天空蓝色 -->
+        </emitter>
+    </shape>
+s
+<!--   <emitter type="sunsky">-->
+<!--        <float name="turbidity" value="2"/>-->
+<!--        <float name="hour" value="12.0"/>-->
+<!--        <float name="sun_scale" value="10"/>-->
+<!--        <float name="sky_scale" value="50"/>-->
+<!--   </emitter>-->
+
+    <shape type="obj">
+        <string name="filename" value="meshes/sky_dome.obj"/>
+        <transform name="to_world">
+            <scale value="5"/>
+        </transform>
+        <ref id="white"/>
+        <emitter type="area">
+               <!-- 中波红外热辐射特性 -->
+               <spectrum name="radiance" value="5"/> <!-- 热辐射强度 -->
+        </emitter>
+    </shape>
+
+    <!-- 海浪网格（OBJ模型）-->
+    <shape type="obj">
+        <string name="filename" value="meshes/ocean_phillips3.obj"/>
+        <transform name="to_world">
+            <translate x="0" y="0" z="0"/>
+        </transform>
+        <ref id="water3_5"/>
+    </shape>
+
+    <bsdf type="diffuse" id="ship">
+         <rgb name="reflectance" value="0.25, 0.25, 0.3"/>
+    </bsdf>
+
+    <shape type="obj">
+        <string name="filename" value="meshes/55.obj"/>
+        <transform name="to_world">
+            <scale value="0.5"/>
+            <translate x="-11" y="-11" z="4"/>
+        </transform>
+        <ref id="ship"/>
+        <emitter type="area">
+               <!-- 中波红外热辐射特性 -->
+               <rgb name="radiance" value="0.25, 0.25, 0.3"/> <!-- 热辐射强度 -->
+        </emitter>
+    </shape>
+
+</scene>
+
