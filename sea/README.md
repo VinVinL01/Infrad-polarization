@@ -629,39 +629,10 @@ def main():
 - 🔬 材料反射特性分析
 - 🛰️ 遥感图像处理
 
-### 未来改进
 
-- [ ] 支持更多偏振参数（如偏振角、椭圆度）
-- [ ] 实时可视化界面
-- [ ] 更高效的批量处理优化
-- [ ] 支持动画序列渲染
+
 
 ---
-
-## 参考文献
-
-1. **Mitsuba 3 Documentation**: [https://mitsuba.readthedocs.io/](https://mitsuba.readthedocs.io/)
-2. **Stokes Parameters**: Born, M., & Wolf, E. (2013). *Principles of optics: electromagnetic theory of propagation, interference and diffraction of light*. Cambridge university press.
-3. **Polarized Rendering**: Wilkie, A., & Weidlich, A. (2011). "Polarized light in computer graphics". In *ACM SIGGRAPH Courses*.
-4. **Ocean Polarization**: Tonizzo, A., et al. (2009). "Polarized light in coastal waters: hyperspectral and multiangular analysis". *Optics Express*, 17(7), 5666-5682.
-
----
-
-## 相关链接
-
-- 📦 **代码仓库**: [GitHub Repository](https://github.com/yourusername/pol-mitsuba)
-- 📚 **Mitsuba官方文档**: [https://mitsuba.readthedocs.io/](https://mitsuba.readthedocs.io/)
-- 💬 **问题反馈**: [GitHub Issues](https://github.com/yourusername/pol-mitsuba/issues)
-
----
-
-## 附录：完整代码
-
-> 💡 **提示**: 完整代码请参考项目仓库中的 `sea/sea_visible_to_X.py` 文件。
-
-
-
-**最后更新**: 2025年
 
 **作者**: [VinVin]
 
